@@ -1,0 +1,8 @@
+.videoCard{
+    margin-bottom:40px;
+    width:270px;
+}
+.videoCard__thumbnail{
+    height:180px;
+    width:250px
+}
