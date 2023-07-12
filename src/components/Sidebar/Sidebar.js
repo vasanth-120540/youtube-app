@@ -10,13 +10,21 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-function Sidebar() {
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
+function Sidebar({ leftSelectedMenu, onLeftSelectedChanged }) {
   return (
     <div className="sidebar">
-      <SidebarRow selected Icon={AddHomeIcon} title="Home" />
+      <div onClick={() => onLeftSelectedChanged("home")}>
+        <SidebarRow Icon={AddHomeIcon} title="Home" />
+      </div>
+      <div onClick={() => onLeftSelectedChanged("favt")}>
+        <SidebarRow Icon={FavoriteIcon} title="Favorite" />
+      </div>
       <SidebarRow Icon={WhatshotIcon} title="Trending" />
       <SidebarRow Icon={SubscriptionsIcon} title="Subscription" />
       <hr />
+
       <SidebarRow Icon={VideoLibraryIcon} title="Library" />
       <SidebarRow Icon={HistoryIcon} title="History" />
       <SidebarRow Icon={OndemandVideoIcon} title="Your video" />

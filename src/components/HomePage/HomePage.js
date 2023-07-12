@@ -15,7 +15,7 @@ export const UserContext = createContext(null);
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("new");
   const previousCategory = usePrevious(selectedCategory);
-
+  const [leftSelectedMenu, setLeftSelectedMenu] = useState("home");
   const onCategoryChanged = useCallback((keyWord) => {
     setSelectedCategory(keyWord);
   }, []);
@@ -36,8 +36,16 @@ const Home = () => {
         Previous Search Key : {previousCategory}
       </div>
       <div className="app__page">
-        <Sidebar />
-        <RecommendedVideos selectedCategory={selectedCategory} />
+        <Sidebar
+          leftSelectedMenu={leftSelectedMenu}
+          onLeftSelectedChanged={(name) => {
+            setLeftSelectedMenu(name);
+          }}
+        />
+        <RecommendedVideos
+          leftSelectedMenu={leftSelectedMenu}
+          selectedCategory={selectedCategory}
+        />
       </div>
     </div>
   );
