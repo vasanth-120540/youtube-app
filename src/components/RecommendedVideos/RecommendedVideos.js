@@ -10,7 +10,6 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
   useEffect(() => {
     const fetchData = () => {
       fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) => {
-        console.log("data", data);
         setVideos(data.items);
       });
     };
@@ -33,6 +32,7 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
                       onFavtVideClicked={() => {
                         setFavtVideo([...favtVideos, videDetail]);
                       }}
+                      // Hide and show Add fav button
                       showAddFavtBtn={
                         favtVideos.length > 0
                           ? favtVideos.find(function (obj) {
@@ -52,11 +52,9 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
                       title={videDetail.snippet.title}
                       channel={videDetail.snippet.channelTitle}
                       image={videDetail.snippet.thumbnails.high.url}
-                      onFavtVideClicked={() => {
-                        setFavtVideo([...favtVideos, videDetail]);
-                      }}
                       isfavourite={true}
                       showAddFavt={false}
+                      // remove fav vdo when OnRemove button clicked
                       onRemoveFavt={() => {
                         const newArr = favtVideos.filter(function (obj) {
                           return obj.id.videoId !== videDetail.id.videoId;

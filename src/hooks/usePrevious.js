@@ -4,7 +4,7 @@ export const usePrevious = (value) => {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
-    console.log(ref.current);
+    console.log("bb" + " " + ref.current);
   }, [value]);
   return ref.current;
 };

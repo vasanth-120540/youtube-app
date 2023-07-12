@@ -10,6 +10,8 @@ function VideoCard({
   showAddFavtBtn,
   onRemoveFavt,
 }) {
+  console.log("favorite" + isfavourite);
+  console.log("showButtom" + showAddFavtBtn);
   return (
     <div className="videoCard">
       <img className="videoCard__thumbnail" src={image} />
