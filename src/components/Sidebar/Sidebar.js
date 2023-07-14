@@ -11,6 +11,7 @@ import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 function Sidebar({ leftSelectedMenu, onLeftSelectedChanged }) {
   return (

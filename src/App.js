@@ -1,13 +1,15 @@
 import React, { createContext } from "react";
 import "./App.css";
 import Home from "./components/HomePage/HomePage";
-import { Routes, Route } from "react-router-dom";
+import Favorite from "./Favorite";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 export const UserContext = createContext(null);
 const App = () => {
   return (
     <UserContext.Provider value={{ name: "vasanth" }}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/favorite" element={<Favorite />} />
       </Routes>
     </UserContext.Provider>
   );

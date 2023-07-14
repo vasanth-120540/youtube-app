@@ -16,8 +16,15 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
   fetchData();
 
   useEffect(() => {
-    localStorage.setItem("video", JSON.stringify(videos));
-  }, [videos]);
+    let favvideo = localStorage.getItem("favvideo");
+    if (favvideo) {
+      favvideo = JSON.parse(favvideo);
+    } else {
+      favvideo = [];
+    }
+    console.log(favvideo);
+    setFavtVideo(favvideo);
+  }, []);
 
   const getVideocardProps = () => {
     const videCardProps = {};
@@ -35,12 +42,17 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
   };
   const onFavtVideClicked = (videDetail) => {
     setFavtVideo([...favtVideos, videDetail]);
+    localStorage.setItem(
+      "favvideo",
+      JSON.stringify([...favtVideos, videDetail])
+    );
   };
   const onRemoveFavt = (videDetail) => {
     const newArr = favtVideos.filter(function (obj) {
       return obj.id.videoId !== videDetail.id.videoId;
     });
     setFavtVideo(newArr);
+    localStorage.setItem("favvideo", JSON.stringify(newArr));
   };
   return (
     <div className="recommendedVideos">
