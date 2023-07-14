@@ -7,64 +7,54 @@ import VideoCard from "../VideoCard/VideoCard";
 function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
   const [videos, setVideos] = useState([]);
   const [favtVideos, setFavtVideo] = useState([]);
+  // hash
+  const fetchData = () => {
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) => {
+      setVideos(data.items);
+    });
+  };
+  fetchData();
+
   useEffect(() => {
-    const fetchData = () => {
-      fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) => {
-        setVideos(data.items);
-      });
-    };
-    fetchData();
-  }, [selectedCategory]);
+    localStorage.setItem("video", JSON.stringify(videos));
+  }, [videos]);
+
+  const getVideocardProps = () => {
+    const videCardProps = {};
+    const favtVideosHash = {};
+    favtVideos.forEach((favtVideo) => {
+      favtVideosHash[favtVideo.id.videoId] = favtVideo;
+    });
+    if (leftSelectedMenu === "home") {
+      videCardProps.videosList = videos;
+    } else {
+      videCardProps.videosList = favtVideos;
+    }
+    videCardProps.favtVideosHash = favtVideosHash;
+    return videCardProps;
+  };
+  const onFavtVideClicked = (videDetail) => {
+    setFavtVideo([...favtVideos, videDetail]);
+  };
+  const onRemoveFavt = (videDetail) => {
+    const newArr = favtVideos.filter(function (obj) {
+      return obj.id.videoId !== videDetail.id.videoId;
+    });
+    setFavtVideo(newArr);
+  };
   return (
     <div className="recommendedVideos">
       <h2> {leftSelectedMenu === "home" ? "Home" : "Favourites"}</h2>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <Grid container sx={{ flex: 5 }}>
-          {leftSelectedMenu === "home"
-            ? videos.map((videDetail) => {
-                return (
-                  <Grid item>
-                    <VideoCard
-                      key={videDetail.id.videoId}
-                      title={videDetail.snippet.title}
-                      channel={videDetail.snippet.channelTitle}
-                      image={videDetail.snippet.thumbnails.high.url}
-                      onFavtVideClicked={() => {
-                        setFavtVideo([...favtVideos, videDetail]);
-                      }}
-                      // Hide and show Add fav button
-                      showAddFavtBtn={
-                        favtVideos.length > 0
-                          ? favtVideos.find(function (obj) {
-                              return obj.id.videoId === videDetail.id.videoId;
-                            })
-                          : false
-                      }
-                    />
-                  </Grid>
-                );
-              })
-            : favtVideos.map((videDetail) => {
-                return (
-                  <Grid item>
-                    <VideoCard
-                      key={videDetail.id.videoId}
-                      title={videDetail.snippet.title}
-                      channel={videDetail.snippet.channelTitle}
-                      image={videDetail.snippet.thumbnails.high.url}
-                      isfavourite={true}
-                      showAddFavt={false}
-                      // remove fav vdo when OnRemove button clicked
-                      onRemoveFavt={() => {
-                        const newArr = favtVideos.filter(function (obj) {
-                          return obj.id.videoId !== videDetail.id.videoId;
-                        });
-                        setFavtVideo(newArr);
-                      }}
-                    />
-                  </Grid>
-                );
-              })}
+          <VideoCard
+            {...getVideocardProps()}
+            onFavtVideClicked={onFavtVideClicked}
+            onRemoveFavt={onRemoveFavt}
+          />
+          {
+            // left === home ? <homevides/>: <favtVideos/>
+          }
         </Grid>
       </div>
     </div>

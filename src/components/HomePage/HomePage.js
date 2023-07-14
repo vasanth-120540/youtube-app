@@ -19,14 +19,16 @@ const Home = () => {
   const onCategoryChanged = useCallback((keyWord) => {
     setSelectedCategory(keyWord);
   }, []);
-
+  // const onLeftSelectedHandler = (name) => {
+  //   setLeftSelectedMenu(name);
+  // };
   return (
     <div>
       <Header
         selectedCategory={selectedCategory}
         changeSelectedCateg={onCategoryChanged}
       />
-      <div
+      {/* <div
         style={{
           alignSelf: "center",
           marginLeft: "500px",
@@ -34,7 +36,7 @@ const Home = () => {
         }}
       >
         Previous Search Key : {previousCategory}
-      </div>
+      </div> */}
       <div className="app__page">
         <Sidebar
           leftSelectedMenu={leftSelectedMenu}

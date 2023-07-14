@@ -14,13 +14,28 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function Sidebar({ leftSelectedMenu, onLeftSelectedChanged }) {
   return (
+    // appendOnClick,
+    // key,
+    // onLeftSelectedChanged,
     <div className="sidebar">
-      <div onClick={() => onLeftSelectedChanged("home")}>
-        <SidebarRow Icon={AddHomeIcon} title="Home" />
-      </div>
-      <div onClick={() => onLeftSelectedChanged("favt")}>
-        <SidebarRow Icon={FavoriteIcon} title="Favorite" />
-      </div>
+      <SidebarRow
+        selected={leftSelectedMenu === "home"}
+        Icon={AddHomeIcon}
+        title="Home"
+        appendOnClick
+        rowKey="home"
+        onLeftSelectedChanged={onLeftSelectedChanged}
+      />
+
+      <SidebarRow
+        selected={leftSelectedMenu === "favorite"}
+        title="Favorite"
+        appendOnClick
+        rowKey="favorite"
+        onLeftSelectedChanged={onLeftSelectedChanged}
+        Icon={FavoriteIcon}
+      />
+
       <SidebarRow Icon={WhatshotIcon} title="Trending" />
       <SidebarRow Icon={SubscriptionsIcon} title="Subscription" />
       <hr />
