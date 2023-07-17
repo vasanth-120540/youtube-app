@@ -1,17 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./SidebarRow.css";
 
-function SidebarRow({
-  selected,
-  Icon,
-  title,
-  appendOnClick,
-  rowKey,
-  onLeftSelectedChanged,
-}) {
+function SidebarRow({ selected, Icon, title, appendOnClick, rowKey }) {
+  const navigate = useNavigate();
   const extraParams = {};
   const onSideRowClick = () => {
-    onLeftSelectedChanged(rowKey);
+    navigate(rowKey);
   };
   if (appendOnClick) {
     extraParams.onClick = onSideRowClick;

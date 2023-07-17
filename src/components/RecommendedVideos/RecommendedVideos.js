@@ -13,7 +13,10 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
       setVideos(data.items);
     });
   };
-  fetchData();
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedCategory]);
 
   useEffect(() => {
     let favvideo = localStorage.getItem("favvideo");
@@ -22,21 +25,18 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
     } else {
       favvideo = [];
     }
-    console.log(favvideo);
+
     setFavtVideo(favvideo);
   }, []);
 
   const getVideocardProps = () => {
-    const videCardProps = {};
+    let videCardProps = {};
     const favtVideosHash = {};
     favtVideos.forEach((favtVideo) => {
       favtVideosHash[favtVideo.id.videoId] = favtVideo;
     });
-    if (leftSelectedMenu === "home") {
-      videCardProps.videosList = videos;
-    } else {
-      videCardProps.videosList = favtVideos;
-    }
+    leftSelectedMenu === "home" && (videCardProps.videosList = videos);
+    leftSelectedMenu === "favorite" && (videCardProps.videosList = favtVideos);
     videCardProps.favtVideosHash = favtVideosHash;
     return videCardProps;
   };
@@ -54,6 +54,7 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
     setFavtVideo(newArr);
     localStorage.setItem("favvideo", JSON.stringify(newArr));
   };
+
   return (
     <div className="recommendedVideos">
       <h2> {leftSelectedMenu === "home" ? "Home" : "Favourites"}</h2>
@@ -64,9 +65,6 @@ function RecommendedVideos({ selectedCategory, leftSelectedMenu }) {
             onFavtVideClicked={onFavtVideClicked}
             onRemoveFavt={onRemoveFavt}
           />
-          {
-            // left === home ? <homevides/>: <favtVideos/>
-          }
         </Grid>
       </div>
     </div>

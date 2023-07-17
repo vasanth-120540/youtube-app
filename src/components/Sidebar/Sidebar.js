@@ -11,20 +11,20 @@ import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Sidebar({ leftSelectedMenu, onLeftSelectedChanged }) {
+  // const navigate = useNavigate();
+
   return (
-    // appendOnClick,
-    // key,
-    // onLeftSelectedChanged,
     <div className="sidebar">
       <SidebarRow
         selected={leftSelectedMenu === "home"}
         Icon={AddHomeIcon}
         title="Home"
         appendOnClick
-        rowKey="home"
+        rowKey="/"
         onLeftSelectedChanged={onLeftSelectedChanged}
       />
 
@@ -32,7 +32,7 @@ function Sidebar({ leftSelectedMenu, onLeftSelectedChanged }) {
         selected={leftSelectedMenu === "favorite"}
         title="Favorite"
         appendOnClick
-        rowKey="favorite"
+        rowKey="/favorites"
         onLeftSelectedChanged={onLeftSelectedChanged}
         Icon={FavoriteIcon}
       />
